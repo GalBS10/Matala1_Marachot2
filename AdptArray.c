@@ -57,6 +57,9 @@ Result SetAdptArrayAt(PAdptArray PAarr, int index, PElement pelem){
     if(PAarr == NULL || pelem == NULL){
         return FAIL;
     }
+    if(index < 0){
+        return FAIL;
+    }
     
     if(index >= PAarr->ArrSize){ // we want tp declare on a new Array
 
@@ -66,8 +69,9 @@ Result SetAdptArrayAt(PAdptArray PAarr, int index, PElement pelem){
         for(int i=0; i<PAarr->ArrSize; i++){
             newArr[i] = PAarr->pelemArr[i];
         }
-
-        free(PAarr->pelemArr);
+        if(PAarr->pelemArr!=NULL){ //checking if we already set an array because otherwise we will try to free a NULL.
+            free(PAarr->pelemArr);
+        }
         PAarr->pelemArr = newArr;
     }
 
@@ -89,11 +93,12 @@ Result SetAdptArrayAt(PAdptArray PAarr, int index, PElement pelem){
 PElement GetAdptArrayAt(PAdptArray PAarr, int index){
 
 if(!PAarr){
-    //exit(1);
+
     return NULL;
+    
 }
 
-if(PAarr->pelemArr[index] == NULL){
+if(PAarr->pelemArr[index] == NULL || index >= PAarr->ArrSize){
     
     return NULL;
 
