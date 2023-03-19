@@ -1,3 +1,11 @@
+//Things I have used:
+// - the solution of moed A of Marachot1
+
+//People I have helped(a little):
+// - yuval yordezinchki
+// - Matan adar
+
+
 #include "string.h"
 #include "stdlib.h"
 #include "stdio.h"
