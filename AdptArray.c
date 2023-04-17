@@ -16,7 +16,10 @@
 typedef struct AdptArray_{
 
 int ArrSize;
-PElement* pelemArr;
+PElement* pelemArr;//the way we hold the objects in the adptarray.
+
+//pointers to functions
+//different function for each kind of object.
 DEL_FUNC df;
 COPY_FUNC cf;
 PRINT_FUNC pf;
@@ -24,11 +27,11 @@ PRINT_FUNC pf;
 }AdptArray , *PAdptArray;
 
 
-PAdptArray CreateAdptArray(COPY_FUNC cf, DEL_FUNC df,PRINT_FUNC pf){
+PAdptArray CreateAdptArray(COPY_FUNC cf, DEL_FUNC df,PRINT_FUNC pf){//creating a new AdptArray.
 
     PAdptArray PAarr = (PAdptArray)malloc(sizeof(AdptArray));
     if(!PAarr){ return NULL; }
-
+    //initialization
     PAarr->ArrSize =0;
     PAarr->cf = cf;
     PAarr->df = df;
@@ -41,13 +44,13 @@ PAdptArray CreateAdptArray(COPY_FUNC cf, DEL_FUNC df,PRINT_FUNC pf){
 
 void DeleteAdptArray(PAdptArray PAarr){
 
-    if(!PAarr){
+    if(!PAarr){//if we didn't get a pointer to a PElement array then we exit.
         exit(1);
     }
 
     for(int i=0; i<PAarr->ArrSize;i++){
 
-        if(PAarr->pelemArr[i] != NULL){
+        if(PAarr->pelemArr[i] != NULL){//deleting only if there is no NULL there.
 
             (*PAarr->df)(PAarr->pelemArr[i]);  //deleting the element with the suitable del func.
 
